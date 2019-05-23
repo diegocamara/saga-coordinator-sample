@@ -3,4 +3,4 @@ pluginManagement {
 		gradlePluginPortal()
 	}
 }
-rootProject.name = 'lra-coordinator'
+rootProject.name = 'coordinator'

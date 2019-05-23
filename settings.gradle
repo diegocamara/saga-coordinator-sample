@@ -8,4 +8,4 @@
  */
 
 rootProject.name = 'saga-coordinator'
-include 'lra-coordinator'
+include 'coordinator'

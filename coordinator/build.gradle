@@ -15,9 +15,9 @@ dependencies {
 	}
 	implementation 'org.springframework.boot:spring-boot-starter-undertow'
 	implementation "org.apache.camel:camel-spring-boot-starter:$camel_version"
-	implementation "org.apache.camel:camel-lra-starter:${camel_version}"
 	implementation "org.apache.camel:camel-servlet-starter:${camel_version}"
 	implementation "org.apache.camel:camel-http4-starter:${camel_version}"
+	implementation "org.apache.camel:camel-jackson-starter:${camel_version}"
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
