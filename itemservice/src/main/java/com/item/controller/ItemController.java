@@ -18,7 +18,7 @@ public class ItemController {
     }
 
     @Status(HttpStatus.CREATED)
-    @Post
+    @Post("/testing")
     public void create(@Body Item item) {
         this.itemService.create(item);
     }
