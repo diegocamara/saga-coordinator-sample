@@ -1,5 +1,0 @@
-profile: service
-defaultPackage: com.order
----
-testFramework: junit
-sourceLanguage: java
