@@ -7,6 +7,6 @@
  * in the user guide at https://docs.gradle.org/5.0/userguide/multi_project_builds.html
  */
 
-rootProject.name = 'saga-coordinator'
-include 'coordinator'
-include 'orderservice'
+rootProject.name = 'saga-ordercoordinator'
+include 'ordercoordinator'
+include 'itemservice'

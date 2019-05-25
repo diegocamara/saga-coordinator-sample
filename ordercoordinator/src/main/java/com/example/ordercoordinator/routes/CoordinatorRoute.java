@@ -29,13 +29,13 @@ public class CoordinatorRoute extends RouteBuilder {
         from("direct:reserveOrderItems")
                 .setBody().body().marshal().json(JsonLibrary.Jackson)
                 .saga()
-                .option("order", body())
+                .option("item", body())
                 .propagation(SagaPropagation.MANDATORY)
                 .compensation("direct:cancelOrderItems")
                 .to("http4://localhost:8081/api");
 
         from("direct:cancelOrderItems")
-                .transform(header("order"))
+                .transform(header("item"))
                 .setHeader(Exchange.HTTP_METHOD, HttpMethods.DELETE)
                 .to("http4://localhost:8081/api");
 

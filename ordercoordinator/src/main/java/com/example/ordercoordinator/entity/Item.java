@@ -1,6 +1,6 @@
 package com.example.ordercoordinator.entity;
 
-public class OrderItem {
+public class Item {
 
     private String description;
 
