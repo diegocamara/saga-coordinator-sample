@@ -1,22 +1,19 @@
 package com.item;
 
 import com.item.entity.Item;
-import com.item.service.ItemService;
 import io.micronaut.context.ApplicationContext;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.client.HttpClient;
-import io.micronaut.http.client.annotation.Client;
 import io.micronaut.runtime.server.EmbeddedServer;
+import io.micronaut.test.annotation.MicronautTest;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import javax.inject.Inject;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-//@MicronautTest
+@MicronautTest
 class IntegrationTest {
 
     private static EmbeddedServer server;

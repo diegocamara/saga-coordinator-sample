@@ -1,7 +1,6 @@
 package com.item.repository.impl;
 
 import com.item.repository.Repository;
-import io.micronaut.spring.tx.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -11,7 +10,6 @@ public abstract class RepositoryImpl<T, ID extends Serializable> implements Repo
 
     @PersistenceContext
     private EntityManager entityManager;
-
 
     @Override
     public T save(T entity) {

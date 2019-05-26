@@ -1,10 +1,7 @@
 package com.item.repository;
 
 import com.item.entity.Item;
-import com.item.repository.impl.ItemRepositoryImpl;
-import com.item.repository.impl.RepositoryImpl;
 import io.micronaut.test.annotation.MicronautTest;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
