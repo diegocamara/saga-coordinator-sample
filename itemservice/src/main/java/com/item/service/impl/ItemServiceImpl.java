@@ -19,7 +19,7 @@ public class ItemServiceImpl implements ItemService {
     @Override
     @Transactional
     public Item create(Item item) {
-        return this.itemRepository.create(item);
+        return this.itemRepository.save(item);
     }
 
 }

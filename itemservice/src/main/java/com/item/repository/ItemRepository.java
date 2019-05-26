@@ -2,6 +2,6 @@ package com.item.repository;
 
 import com.item.entity.Item;
 
-public interface ItemRepository {
-    Item create(Item item);
+public interface ItemRepository extends Repository<Item, String>{
+
 }

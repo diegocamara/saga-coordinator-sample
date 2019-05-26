@@ -35,7 +35,7 @@ class ItemServiceImplTest {
         itemCreated.setId(UUID.randomUUID().toString());
         itemCreated.setDescription(item.getDescription());
 
-        when(itemRepository.create(any(Item.class))).thenReturn(itemCreated);
+        when(itemRepository.save(any(Item.class))).thenReturn(itemCreated);
 
         Item resultItem = itemService.create(item);
 
