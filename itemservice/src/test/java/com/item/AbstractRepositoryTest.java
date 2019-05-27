@@ -3,8 +3,8 @@ package com.item;
 import org.h2.jdbcx.JdbcDataSource;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.AvailableSettings;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 
 import javax.persistence.EntityManager;
@@ -15,19 +15,17 @@ import java.util.Properties;
 
 public class AbstractRepositoryTest {
 
-    private static EntityManagerFactory entityManagerFactory;
-    public static EntityManager entityManager;
-    private static String packagesToScan = "com.item.entity";
+    private EntityManagerFactory entityManagerFactory;
+    public  EntityManager entityManager;
 
-    @BeforeAll
-    public static void beforeAll() throws IOException {
-        SessionFactory sessionFactory = sessionFactory();
-        entityManagerFactory = sessionFactory;
+    @BeforeEach
+    public void beforeEach() throws IOException {
+        entityManagerFactory = sessionFactory();
         entityManager = entityManagerFactory.createEntityManager();
     }
 
-    @AfterAll
-    public static void afterAll() {
+    @AfterEach
+    public void afterEach() {
         entityManager.close();
         entityManagerFactory.close();
     }
@@ -37,24 +35,34 @@ public class AbstractRepositoryTest {
         command.run();
         entityManager.flush();
         entityManager.getTransaction().commit();
-
     }
 
 
-    private static SessionFactory sessionFactory() throws IOException {
+    private SessionFactory sessionFactory() throws IOException {
         return localSessionFactoryBean().getObject();
     }
 
-    private static LocalSessionFactoryBean localSessionFactoryBean() throws IOException {
+    private LocalSessionFactoryBean localSessionFactoryBean() throws IOException {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
         localSessionFactoryBean.setDataSource(dataSource());
         localSessionFactoryBean.setHibernateProperties(properties());
-        localSessionFactoryBean.setPackagesToScan(packagesToScan);
+
+        Class<?>[] annotatedClasses = annotatedClasses();
+
+        String packagesToScan = packagesToScan();
+
+        if (annotatedClasses != null && annotatedClasses.length > 0) {
+            localSessionFactoryBean.setAnnotatedClasses(annotatedClasses);
+        } else if (packagesToScan != null && !packagesToScan.isEmpty()) {
+            localSessionFactoryBean.setPackagesToScan(packagesToScan);
+        }
+
+
         localSessionFactoryBean.afterPropertiesSet();
         return localSessionFactoryBean;
     }
 
-    private static DataSource dataSource() {
+    private DataSource dataSource() {
         JdbcDataSource jdbcDataSource = new JdbcDataSource();
         jdbcDataSource.setUrl("jdbc:h2:mem:default;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE");
         jdbcDataSource.setUser("sa");
@@ -62,12 +70,20 @@ public class AbstractRepositoryTest {
         return jdbcDataSource;
     }
 
-    private static Properties properties() {
+    private Properties properties() {
         Properties properties = new Properties();
         properties.put(AvailableSettings.HBM2DDL_AUTO, "create-drop");
         properties.put(AvailableSettings.DIALECT, "org.hibernate.dialect.H2Dialect");
         properties.put(AvailableSettings.SHOW_SQL, "true");
         return properties;
+    }
+
+    Class<?>[] annotatedClasses(){
+        return null;
+    }
+
+    String packagesToScan(){
+        return "";
     }
 
 }
