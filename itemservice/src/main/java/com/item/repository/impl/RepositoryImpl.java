@@ -4,7 +4,13 @@ import com.item.repository.Repository;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
 import java.io.Serializable;
+import java.util.List;
 
 public abstract class RepositoryImpl<T, ID extends Serializable> implements Repository<T, ID> {
 
@@ -33,5 +39,14 @@ public abstract class RepositoryImpl<T, ID extends Serializable> implements Repo
     }
 
     abstract Class<T> persistentClass();
+
+    public List<T> allEntries() {
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> cq = cb.createQuery(persistentClass());
+        Root<T> rootEntry = cq.from(persistentClass());
+        CriteriaQuery<T> all = cq.select(rootEntry);
+        TypedQuery<T> allQuery = entityManager.createQuery(all);
+        return allQuery.getResultList();
+    }
 
 }

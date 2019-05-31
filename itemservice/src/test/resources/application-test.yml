@@ -1,8 +1,6 @@
 micronaut:
-  application:
-    name: ${APPLICATION_NAME:itemservice}
   server:
-    port: ${APPLICATION_PORT:8081}
+    port: -1
 
 datasources:
   default:

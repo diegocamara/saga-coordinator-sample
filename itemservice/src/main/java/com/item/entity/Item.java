@@ -8,7 +8,6 @@ public class Item {
     @Id
     private String id;
 
-    //    @Column
     private String description;
 
     public String getId() {

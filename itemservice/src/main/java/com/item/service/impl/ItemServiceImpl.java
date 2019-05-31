@@ -3,6 +3,7 @@ package com.item.service.impl;
 import com.item.entity.Item;
 import com.item.repository.ItemRepository;
 import com.item.service.ItemService;
+
 import io.micronaut.spring.tx.annotation.Transactional;
 
 import javax.inject.Singleton;
@@ -20,6 +21,12 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public Item create(Item item) {
         return this.itemRepository.save(item);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public Item findById(String id) {
+        return this.itemRepository.findById(id);
     }
 
 }

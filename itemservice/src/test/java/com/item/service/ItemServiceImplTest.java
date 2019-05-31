@@ -4,6 +4,8 @@ package com.item.service;
 import com.item.entity.Item;
 import com.item.repository.ItemRepository;
 import com.item.service.impl.ItemServiceImpl;
+
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,6 +42,21 @@ class ItemServiceImplTest {
         Item resultItem = itemService.create(item);
 
         assertEquals(itemCreated.getId(), resultItem.getId());
+
+    }
+
+    @Test
+    void shouldReturnPersistedItemById(){
+
+        Item item = new Item();
+        item.setId(UUID.randomUUID().toString());
+        item.setDescription("Item Description");
+
+        when(itemRepository.findById(item.getId())).thenReturn(item);
+
+        Item resultItem = itemService.findById(item.getId());
+
+        Assertions.assertNotNull(resultItem);
 
     }
 
