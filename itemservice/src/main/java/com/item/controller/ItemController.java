@@ -10,7 +10,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Status;
 
-@Controller("/")
+@Controller
 public class ItemController {
 
     private ItemService itemService;
@@ -21,8 +21,8 @@ public class ItemController {
 
     @Post
     @Status(HttpStatus.CREATED)
-    public void create(@Body Item item) {
-        this.itemService.create(item);
+    public Item create(@Body Item item) {
+        return this.itemService.create(item);
     }
 
     @Get("/{id}")

@@ -23,19 +23,25 @@ class ItemControllerTest {
     }
 
     @Test
-    void shouldCallItemServiceCreateMethod() {
+    void shouldReturnItemWithId() {
 
         Item item = new Item();
         item.setDescription("Item Descriiption");
 
-        itemController.create(item);
+        Item itemCreated = new Item();
+        itemCreated.setId(UUID.randomUUID().toString());
+        itemCreated.setDescription("Item Descriiption");
 
-        verify(itemService, times(1)).create(item);
+        when(itemService.create(item)).thenReturn(itemCreated);
+
+        Item resultItem = itemController.create(item);
+
+        Assertions.assertNotNull(resultItem.getId());
 
     }
 
     @Test
-    void shouldReturnItem(){
+    void shouldReturnItem() {
 
         Item item = new Item();
         item.setId(UUID.randomUUID().toString());

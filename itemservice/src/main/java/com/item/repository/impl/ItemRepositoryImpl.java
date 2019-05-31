@@ -3,7 +3,10 @@ package com.item.repository.impl;
 import com.item.entity.Item;
 import com.item.repository.ItemRepository;
 
+import javax.inject.Inject;
 import javax.inject.Singleton;
+import javax.sql.DataSource;
+
 import java.util.UUID;
 
 @Singleton
