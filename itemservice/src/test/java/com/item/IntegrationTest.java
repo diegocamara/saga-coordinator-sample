@@ -2,15 +2,19 @@ package com.item;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.item.entity.Item;
+
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.client.RxHttpClient;
 import io.micronaut.http.client.annotation.Client;
+import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.test.annotation.MicronautTest;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import javax.inject.Inject;
+
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -81,9 +85,13 @@ class IntegrationTest {
 
         deleteItem(createdItem.getId());
 
-        Item resultItem = findItem(createdItem.getId());
+        String itemUrl = "/".concat(createdItem.getId());
 
-        Assertions.assertNull(resultItem);
+        HttpClientResponseException httpClientResponseException = Assertions.assertThrows(HttpClientResponseException.class, () ->
+                httpClient.toBlocking().exchange(HttpRequest.GET(itemUrl))
+        );
+
+        Assertions.assertEquals(404, httpClientResponseException.getResponse().code());
 
     }
 
