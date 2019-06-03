@@ -4,11 +4,8 @@ import com.item.entity.Item;
 import com.item.service.ItemService;
 
 import io.micronaut.http.HttpStatus;
-import io.micronaut.http.annotation.Body;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.http.annotation.Post;
-import io.micronaut.http.annotation.Status;
+import io.micronaut.http.MediaType;
+import io.micronaut.http.annotation.*;
 
 @Controller
 public class ItemController {
@@ -28,6 +25,18 @@ public class ItemController {
     @Get("/{id}")
     @Status(HttpStatus.OK)
     public Item findById(String id) {
-        return itemService.findById(id);
+        return this.itemService.findById(id);
+    }
+
+    @Put
+    @Status(HttpStatus.NO_CONTENT)
+    public void update(@Body Item item) {
+        this.itemService.update(item);
+    }
+
+    @Delete("/{id}")
+    @Status(HttpStatus.NO_CONTENT)
+    public void delete(String id) {
+        this.itemService.delete(id);
     }
 }

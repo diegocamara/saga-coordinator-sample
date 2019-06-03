@@ -13,8 +13,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 class ItemServiceImplTest {
 
@@ -57,6 +56,29 @@ class ItemServiceImplTest {
         Item resultItem = itemService.findById(item.getId());
 
         Assertions.assertNotNull(resultItem);
+
+    }
+
+    @Test
+    void shouldCallItemRepositoryUpdate(){
+
+        Item item = new Item();
+        item.setId(UUID.randomUUID().toString());
+        item.setDescription("Item Description");
+
+        itemService.update(item);
+
+        verify(itemRepository).saveOrUpdate(item);
+
+    }
+
+    @Test
+    void shouldCallItemRepositoryDelete(){
+        String itemId = UUID.randomUUID().toString();
+
+        itemService.delete(itemId);
+
+        verify(itemRepository).delete(itemId);
 
     }
 

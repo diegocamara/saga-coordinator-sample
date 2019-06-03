@@ -10,6 +10,8 @@ public interface Repository<T, ID extends Serializable> {
 
     void delete(T entity);
 
+    void delete(ID id);
+
     T findById(ID id);
 
 }

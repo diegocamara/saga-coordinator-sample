@@ -55,4 +55,28 @@ class ItemControllerTest {
 
     }
 
+    @Test
+    void shouldCallUpdate() {
+
+        Item item = new Item();
+        item.setId(UUID.randomUUID().toString());
+        item.setDescription("Description 1");
+
+        itemController.update(item);
+
+        verify(itemService).update(item);
+
+    }
+
+    @Test
+    void shouldCallDelete() {
+
+        String itemId = UUID.randomUUID().toString();
+
+        itemController.delete(itemId);
+
+        verify(itemService).delete(itemId);
+
+    }
+
 }

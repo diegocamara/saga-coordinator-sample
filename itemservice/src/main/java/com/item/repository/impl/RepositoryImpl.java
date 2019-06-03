@@ -1,6 +1,7 @@
 package com.item.repository.impl;
 
 import com.item.repository.Repository;
+import org.hibernate.Session;
 
 import java.io.Serializable;
 
@@ -29,8 +30,19 @@ public abstract class RepositoryImpl<T, ID extends Serializable> implements Repo
     }
 
     @Override
+    public void delete(ID id) {
+        T entity = hibernateSession().load(persistentClass(), id);
+        delete(entity);
+    }
+
+    @Override
     public T findById(ID id) {
         return entityManager.find(persistentClass(), id);
+    }
+
+
+    private Session hibernateSession() {
+        return this.entityManager.unwrap(Session.class);
     }
 
     abstract Class<T> persistentClass();
