@@ -40,6 +40,7 @@ dependencies {
     // persistence
     compile "io.micronaut.configuration:micronaut-hibernate-jpa"
     compile "io.micronaut.configuration:micronaut-jdbc-hikari"
+    compile 'io.micronaut.configuration:micronaut-flyway'
     compile "com.h2database:h2"
 
     runtime "ch.qos.logback:logback-classic:1.2.3"
