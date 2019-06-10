@@ -1,8 +1,11 @@
 package com.item.entity;
 
+import io.micronaut.core.annotation.Introspected;
+
 import javax.persistence.*;
 
 @Entity
+@Introspected
 public class Item {
 
     @Id

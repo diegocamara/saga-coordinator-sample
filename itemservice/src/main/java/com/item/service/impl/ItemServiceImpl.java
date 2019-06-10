@@ -7,6 +7,7 @@ import com.item.service.ItemService;
 import io.micronaut.spring.tx.annotation.Transactional;
 
 import javax.inject.Singleton;
+import java.util.List;
 
 @Singleton
 public class ItemServiceImpl implements ItemService {
@@ -39,6 +40,12 @@ public class ItemServiceImpl implements ItemService {
     @Transactional
     public void delete(String id) {
         this.itemRepository.delete(id);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<Item> findAll() {
+        return this.itemRepository.findAll();
     }
 
 }

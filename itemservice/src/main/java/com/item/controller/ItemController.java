@@ -2,10 +2,10 @@ package com.item.controller;
 
 import com.item.entity.Item;
 import com.item.service.ItemService;
-
 import io.micronaut.http.HttpStatus;
-import io.micronaut.http.MediaType;
 import io.micronaut.http.annotation.*;
+
+import java.util.List;
 
 @Controller
 public class ItemController {
@@ -39,4 +39,10 @@ public class ItemController {
     public void delete(String id) {
         this.itemService.delete(id);
     }
+
+    @Get
+    public List<Item> findAll(){
+        return this.itemService.findAll();
+    }
+
 }

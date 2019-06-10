@@ -4,9 +4,14 @@ import com.item.repository.Repository;
 import org.hibernate.Session;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 public abstract class RepositoryImpl<T, ID extends Serializable> implements Repository<T, ID> {
 
@@ -41,19 +46,20 @@ public abstract class RepositoryImpl<T, ID extends Serializable> implements Repo
     }
 
 
+    @Override
+    public List<T> findAll() {
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<T> criteriaQuery = criteriaBuilder.createQuery(persistentClass());
+        Root<T> rootEntry = criteriaQuery.from(persistentClass());
+        CriteriaQuery<T> all = criteriaQuery.select(rootEntry);
+        TypedQuery<T> allQuery = entityManager.createQuery(all);
+        return allQuery.getResultList();
+    }
+
     private Session hibernateSession() {
         return this.entityManager.unwrap(Session.class);
     }
 
     abstract Class<T> persistentClass();
-
-//    public List<T> allEntries() {
-//        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-//        CriteriaQuery<T> cq = cb.createQuery(persistentClass());
-//        Root<T> rootEntry = cq.from(persistentClass());
-//        CriteriaQuery<T> all = cq.select(rootEntry);
-//        TypedQuery<T> allQuery = entityManager.createQuery(all);
-//        return allQuery.getResultList();
-//    }
 
 }

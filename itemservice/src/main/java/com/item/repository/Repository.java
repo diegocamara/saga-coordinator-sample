@@ -1,6 +1,7 @@
 package com.item.repository;
 
 import java.io.Serializable;
+import java.util.List;
 
 public interface Repository<T, ID extends Serializable> {
 
@@ -14,4 +15,5 @@ public interface Repository<T, ID extends Serializable> {
 
     T findById(ID id);
 
+    List<T> findAll();
 }
