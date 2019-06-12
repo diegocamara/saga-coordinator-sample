@@ -3,6 +3,10 @@ micronaut:
     name: ${APPLICATION_NAME:itemservice}
   server:
     port: ${APPLICATION_PORT:8081}
+  io:
+    watch:
+      paths: 'src/main'
+      restart: true
 
 datasources:
   default:

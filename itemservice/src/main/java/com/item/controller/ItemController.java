@@ -2,6 +2,7 @@ package com.item.controller;
 
 import com.item.entity.Item;
 import com.item.service.ItemService;
+
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.*;
 
@@ -41,7 +42,8 @@ public class ItemController {
     }
 
     @Get
-    public List<Item> findAll(){
+    @Status(HttpStatus.OK)
+    public List<Item> findAll() {
         return this.itemService.findAll();
     }
 
